@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan</title>
+    <link rel="stylesheet" href="loan.css"><!-- Link to external CSS for styling -->
+</head>
+<body>
+    <!-- Loan Calculator -->
+    <form action="" name="loandata">
+        <table>
+            <tr>
+                <td colspan="3"><b>Enter Loan Information</b></td> <!-- Title Row -->
+            </tr>
+            <tr>
+                <th>S.No</th>
+                <th>Instruction</th>
+                <th>Input</th>
+            </tr>
+            <tr>
+                <td>1)</td>
+                <td>Amount of the Loan</td><!-- Column Headers -->
+                <td>
+                    <input type="number" name="principal" id="" size="12" placeholder="Any amount below Ksh. 1,000,000">
+                </td><!-- Input Field for the loan-->
+            </tr>
+            <tr>
+                <td>2)</td>
+                <td>Annual Percentage Interest Rate</td>
+                <td>
+                    <input type="number" name="interest" id="" size="12" placeholder="e.g. 5">
+                    <!-- Optional: <small>Enter as a percentage (e.g. 5 for 5%)</small> -->
+                </td>
+            </tr>
+            <tr>
+                <td>3)</td>
+                <td>Repayment Periods in years:</td>
+                <td><input type="number" name="years" id="" size="12" placeholder="In terms of Years"></td><!-- Input Field for the repayment period-->
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button type="button" onclick="calculate()">Compute</button><!-- Button to trigger calculation -->
+                    <button type="reset">Reset</button><!-- Button to reset the form -->
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><b>Payment Information:</b></td><!-- Title Row for Payment Information -->
+            </tr>
+            <tr>
+                <td>4)</td>
+                <td>Your Monthly Payment will be:</td><!-- Column Headers -->
+                <td><input type="number" name="payment" id="" size="12" readonly></td><!-- Input Field for the monthly payment, readonly -->
+            </tr>
+            <tr>
+                <td>5)</td>
+                <td>Total Payment over the life of the loan:</td>
+                <td><input type="number" name="total" id="" size="12" readonly></td><!-- Input Field for the total payment, readonly -->
+            </tr>
+            <tr>
+                <td>6)</td>
+                <td>Total Interest Paid over the life of the loan:</td>
+                <td><input type="number" name="totalinterest" id="" size="12" readonly></td><!-- Input Field for the total interest paid, readonly -->
+            </tr>
+        </table>
+        <div id="error-message" style="color: red;"></div><!-- Placeholder for error messages -->
+        <div id="result-message" style="color: green;"></div><!-- Placeholder for result messages -->
+        <div id="loading-message" style="display: none;">Calculating...</div><!-- Placeholder for loading message -->
+        <div id="success-message" style="color: green;"></div><!-- Placeholder for success messages -->
+        <div id="failure-message" style="color: red;"></div><!-- Placeholder for failure messages -->
+    </form>
+    <script src="loan.js"></script>
+</body>
+</html>

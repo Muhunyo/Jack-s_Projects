@@ -1,0 +1,106 @@
+        * {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            margin: 2px;
+            padding: 2px;
+        }
+        body {
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;            
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            border-color: #bb1597;
+            outline: none;
+
+        }
+        input[type="number"][readonly] {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
+        input[type="number"][readonly]:focus {
+            border-color: #ccc;
+            background-color: #f9f9f9;
+            outline: none;
+
+        }
+        input::placeholder {
+            color: #828659;
+            opacity: 0.7;
+            font-style: italic;
+            font-size: 14px;
+        }
+        button {
+            background-color: #bb1597;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+
+        }
+        button:hover {
+            background-color: #a70e80;
+            transform: translateX(2px);
+
+        }
+        button:active {
+            background-color: #dd1929;
+            transform: translateY(2px);
+
+        }
+        b {
+            color: #bb1597;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: large;
+            text-align: left;
+            padding: 5px 0;
+
+        }
+        tr {
+            background-color: #b6e0e0;
+            transition: background-color 0.3s;
+            cursor: auto;
+
+        }
+        tr:hover {
+            background-color: #a0d4d4;
+            transform: scale(1.01);
+
+        }
+        tr:nth-child(even) {
+            background-color: #d0f0f0;
+            transform: scale(1.01);
+        }
+        tr:nth-child(odd) {
+            background-color: #e0f7f7;
+            transform: scale(1.01);
+        }
