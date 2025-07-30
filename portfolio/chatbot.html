@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent Chatbot Framework</title>
+    <link rel="icon" type="image/x-icon" href="./Icons/chatbot.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7e22ce;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --chatbot-bg: #f0f4ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7ff 0%, #e6e9ff 100%);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            width:   36px;
+            height: 36px;
+            margin-left: 15px;
+            z-index: 1101;
+        }
+        .nav-toggle span {
+            display: block;
+            height: 4px;
+            width: 100%;
+            background: var(--primary);
+            margin: 5px 0;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(126, 34, 206, 0.1) 100%);
+            top: -300px;
+            right: -300px;
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(126, 34, 206, 0.1) 100%);
+            bottom: -200px;
+            left: -200px;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .hero-text h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .chatbot-illustration {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chatbot-header i {
+            font-size: 1.8rem;
+            margin-right: 15px;
+        }
+        
+        .chatbot-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .chat-messages {
+            padding: 20px;
+            height: 300px;
+            overflow-y: auto;
+            background: var(--chatbot-bg);
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .bot-message {
+            justify-content: flex-start;
+        }
+        
+        .user-message {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            position: relative;
+        }
+        
+        .bot-message .message-content {
+            background: white;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .user-message .message-content {
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .chat-input button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+        
+        /* Features Section */
+        .features {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* Benefits Section */
+        .benefits-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .benefits-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .benefits-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .benefits-list {
+            list-style: none;
+        }
+        
+        .benefits-list li {
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        .benefits-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .benefits-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .integration-illustration {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .integration-illustration img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-col p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .features {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-text {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+            
+            .hero-btns {
+                display: flex;
+                justify-content: center;
+            }
+            
+            .btn-outline {
+                margin-left: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .features {
+                padding: 30px 20px;
+            }
+            
+            .btn {
+                display: block;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+                }
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        width: 220px;
+        box-shadow: 0 8px 32px rgba(37,99,235,0.08);
+        border-radius: 0 0 12px 12px;
+        padding: 30px 0 20px 0;
+        display: none;
+        z-index: 1100;
+    }
+    .nav-links.open {
+        display: flex;
+    }
+    .nav-links li {
+        margin: 0 0 18px 0;
+        text-align: right;
+        padding: 0 30px;
+    }
+    .nav-links a {
+        color: var(--primary);
+        font-size: 1.1rem;
+    }
+    nav {
+        position: relative;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Chat<span>AI</span></a>
+                <div class="nav-toggle" id="navToggle" aria-label="Open navigation" tabindex="0">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#demo">Demo</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h4>Intelligent Chatbot Framework</h4>
+                    <h1>Enterprise-grade AI Conversation Platform</h1>
+                    <p>Transform customer interactions with our advanced NLP chatbot solution. Featuring context awareness, seamless integration, and enterprise-grade security for your business systems.</p>
+                    <div class="hero-btns">
+                        <a href="#demo" class="btn">Live Demo</a>
+                        <a href="#contact" class="btn btn-outline">Get Started</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="chatbot-illustration">
+                        <div class="chatbot-header">
+                            <i class="fas fa-robot"></i>
+                            <h3>Enterprise AI Assistant</h3>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="message bot-message">
+                                <div class="message-content">
+                                    Hello! I'm your enterprise AI assistant. How can I help you today?
+                                </div>
+                            </div>
+                            <div class="message user-message">
+                                <div class="message-content">
+                                    What can you help me with?
+                                </div>
+                            </div>
+                            <div class="message bot-message">
+                                <div class="message-content">
+                                    I can assist with customer support, process orders, answer HR questions, provide technical documentation, and integrate with your business systems!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" placeholder="Type your message...">
+                            <button><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Advanced Features</h2>
+                <p>Our framework combines cutting-edge AI with enterprise-grade capabilities</p>
+            </div>
+            <div class="features">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Natural Language Understanding</h3>
+                        <p>Advanced NLP algorithms interpret complex user queries with human-like understanding, including slang and industry-specific terminology.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Context Awareness</h3>
+                        <p>Maintains conversation context across multiple interactions, remembering user preferences and previous discussion points.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>Seamless Integration</h3>
+                        <p>Pre-built connectors for CRM, ERP, helpdesk, and other enterprise systems with robust APIs for custom integrations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Enterprise Security</h3>
+                        <p>SOC 2 compliant with end-to-end encryption, role-based access control, and comprehensive audit trails.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Continuous Learning</h3>
+                        <p>Machine learning algorithms improve responses over time based on user interactions and feedback.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Multi-language Support</h3>
+                        <p>Native support for 35+ languages with automatic translation capabilities for global deployments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Business Benefits</h2>
+                <p>Transform your operations with our intelligent chatbot solution</p>
+            </div>
+            <div class="benefits-container">
+                <div class="benefits-text">
+                    <h3>Why Enterprises Choose Our Framework</h3>
+                    <ul class="benefits-list">
+                        <li><strong>Reduce Support Costs:</strong> Automate up to 80% of routine customer inquiries</li>
+                        <li><strong>24/7 Availability:</strong> Provide instant responses at any time of day or night</li>
+                        <li><strong>Improved Customer Satisfaction:</strong> Decrease resolution time and increase CSAT scores</li>
+                        <li><strong>Scalable Solution:</strong> Handle thousands of concurrent conversations with ease</li>
+                        <li><strong>Actionable Insights:</strong> Gain valuable customer intelligence from conversation analytics</li>
+                        <li><strong>Rapid Deployment:</strong> Get up and running in days, not months</li>
+                        <li><strong>Omnichannel Experience:</strong> Consistent service across web, mobile, and messaging platforms</li>
+                    </ul>
+                    <a href="#contact" class="btn">Request Enterprise Demo</a>
+                </div>
+                <div class="benefits-image">
+                    <div class="integration-illustration">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Business Integration">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+     <section id="demo">
+    <div class="container">
+        <div class="section-title">
+            <h2>Live Demo</h2>
+            <p>Experience our intelligent chatbot in action. See how it handles real-world queries and integrates with enterprise systems.</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start;">
+            <div style="flex:1; min-width:300px;">
+                <h3 style="margin-bottom:15px; color:var(--primary);">Try the Chatbot</h3>
+                <div class="chatbot-illustration" style="max-width:400px; margin-bottom:30px;">
+                    <div class="chatbot-header">
+                        <i class="fas fa-robot"></i>
+                        <h3>Demo Assistant</h3>
+                    </div>
+                    <div class="chat-messages" style="height:200px;">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                Welcome to the demo! Ask me anything about our platform.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message...">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div style="flex:1; min-width:300px;">
+                <h3 style="margin-bottom:15px; color:var(--secondary);">Demo Features</h3>
+                <ul style="color:var(--gray); font-size:1.1rem; margin-bottom:20px;">
+                    <li>Natural language understanding</li>
+                    <li>Context-aware responses</li>
+                    <li>Integration simulation (CRM, ERP, Helpdesk)</li>
+                    <li>Multi-language support</li>
+                    <li>Security and compliance showcase</li>
+                </ul>
+                <a href="#schedule-demo" class="btn">Request Full Enterprise Demo</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section id="resources">
+    <div class="container">
+        <div class="section-title">
+            <h2>Resources</h2>
+            <p>Explore our documentation, guides, and case studies to get the most out of our Intelligent Chatbot Framework.</p>
+        </div>
+        <div class="features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Documentation</h3>
+                    <p>Comprehensive guides and API references to help you integrate and customize your chatbot solution.</p>
+                    <a href="./port.html" class="btn" style="margin-top:15px;">View Docs</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3>Integration Guides</h3>
+                    <p>Step-by-step tutorials for connecting with CRM, ERP, helpdesk, and other enterprise systems.</p>
+                    <a href="./predictive.html" class="btn btn-outline" style="margin-top:15px;">See Guides</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Case Studies</h3>
+                    <p>Discover how leading organizations leverage our chatbot framework to transform their operations.</p>
+                    <a href="./predictive.html" class="btn" style="margin-top:15px;">Read Stories</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>White Papers</h3>
+                    <p>In-depth research and analysis on conversational AI, security, and enterprise automation.</p>
+                    <a href="./port.html" class="btn btn-outline" style="margin-top:15px;">Reach Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Schedule a Demo Section -->
+<section id="schedule-demo">
+    <div class="container">
+        <div class="section-title">
+            <h2>Schedule a Demo</h2>
+            <p>Request a personalized demonstration of our Intelligent Chatbot Framework. Fill in your details and our team will get in touch with you soon.</p>
+        </div>
+        <form id="demoForm" action="./Database/demo.php" method="POST" style="max-width:500px; margin:0 auto; background:#fff; border-radius:16px; padding:40px 30px; box-shadow:0 8px 32px rgba(37,99,235,0.08);">
+            <div style="margin-bottom:20px;">
+                <label for="demoName" style="display:block; font-weight:500; margin-bottom:6px; color:var(--primary);">Full Name</label>
+                <input type="text" id="demoName" name="demoName" required placeholder="Enter your full name" style="width:100%;padding:12px;border-radius:8px;border:1px solid #e2e8f0;">
+            </div>
+            <div style="margin-bottom:20px;">
+                <label for="demoEmail" style="display:block; font-weight:500; margin-bottom:6px; color:var(--primary);">Email Address</label>
+                <input type="email" id="demoEmail" name="demoEmail" required placeholder="Enter your email address" style="width:100%;padding:12px;border-radius:8px;border:1px solid #e2e8f0;">
+            </div>
+            <div style="margin-bottom:20px;">
+                <label for="demoService" style="display:block; font-weight:500; margin-bottom:6px; color:var(--primary);">Select Service</label>
+                <select id="demoService" name="demoService" required style="width:100%;padding:12px;border-radius:8px;border:1px solid #e2e8f0;">
+                    <option value="">-- Choose a Service --</option>
+                    <option value="Chatbot Integration">Chatbot Integration</option>
+                    <option value="Custom AI Development">Custom AI Development</option>
+                    <option value="Enterprise Support">Enterprise Support</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div style="margin-bottom:24px;">
+                <label for="demoMessage" style="display:block; font-weight:500; margin-bottom:6px; color:var(--primary);">Short Message</label>
+                <textarea id="demoMessage" name="demoMessage" rows="3" required placeholder="Tell us about your needs..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #e2e8f0;"></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Intelligent Chatbot Framework</h3>
+                    <p>Enterprise-grade AI conversation platform with advanced NLP capabilities, context awareness, and seamless business integration.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/jack-wariari-0b3754302/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Muhunyo"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/MainaWaria90059"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/mainaWariari/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/jackmuhunyo/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#benefits">Benefits</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#resources">Documentation</a></li>
+                        <li><a href="#resources">API Reference</a></li>
+                        <li><a href="#resources">Integration Guides</a></li>
+                        <li><a href="#resources">Case Studies</a></li>
+                        <li><a href="#resources">White Papers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@chatbot-ai.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (800) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> San Francisco, CA</li>
+                        <li><a href="#schedule-demo" class="btn" style="margin-top: 15px;">Schedule a Demo</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Intelligent Chatbot Framework. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple chatbot interaction for demo purposes
+        document.querySelector('.chat-input button').addEventListener('click', function() {
+            const input = document.querySelector('.chat-input input');
+            const message = input.value.trim();
+            
+            if(message) {
+                // Add user message
+                const messagesContainer = document.querySelector('.chat-messages');
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user-message');
+                userMessage.innerHTML = `<div class="message-content">${message}</div>`;
+                messagesContainer.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('message', 'bot-message');
+                    
+                    let response = "I'm an enterprise AI assistant. For a real demonstration, please contact our team to schedule a personalized demo.";
+                    
+                    if(message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                        response = "Hello there! How can I assist you today?";
+                    } else if(message.toLowerCase().includes('pricing')) {
+                        response = "Our enterprise pricing is customized based on your requirements. I can connect you with our sales team for details.";
+                    } else if(message.toLowerCase().includes('integration')) {
+                        response = "We integrate with all major CRM, ERP and business systems including Salesforce, Microsoft Dynamics, SAP, and more.";
+                    }
+                    
+                    botMessage.innerHTML = `<div class="message-content">${response}</div>`;
+                    messagesContainer.appendChild(botMessage);
+                    
+                    // Scroll to bottom
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 1000);
+            }
+        });
+        
+        // Allow pressing Enter to send message
+        document.querySelector('.chat-input input').addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                document.querySelector('.chat-input button').click();
+            }
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+document.querySelector('#demoForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    fetch('./Database/demo.php', {
+        method: 'POST',
+        body: new FormData(this)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Success: ' + data.message);
+        } else {
+            alert('Error: ' + data.message);
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('open');
+    });
+    navToggle.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            navLinks.classList.toggle('open');
+        }
+    });
+    // Close nav on link click (mobile)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if(window.innerWidth <= 768) navLinks.classList.remove('open');
+        });
+    });
+});
+    </script>
+</body>
+</html>

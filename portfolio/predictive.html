@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Analytics System | Market Forecasting Platform</title>
+    <link rel="icon" type="image/x-icon" href="./Icons/predictive-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0ea5e9;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --finance-blue: #1e3a8a;
+            --finance-teal: #06b6d4;
+            --finance-purple: #7e22ce;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--darker) 0%, #1e293b 100%);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: rgba(2, 6, 23, 0.9);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--finance-teal);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--finance-teal);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--finance-teal);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            top: -400px;
+            right: -400px;
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+            bottom: -300px;
+            left: -300px;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-text h4 {
+            color: var(--finance-teal);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--light);
+            background: linear-gradient(to right, var(--finance-teal), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .accuracy-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .accuracy-badge i {
+            margin-right: 10px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .analytics-dashboard {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dashboard-header h3 {
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+        
+        .time-filters {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .time-btn {
+            background: rgba(30, 58, 138, 0.5);
+            color: var(--light);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .time-btn.active {
+            background: var(--finance-blue);
+        }
+        
+        .chart-container {
+            height: 300px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .metric-card {
+            background: rgba(2, 6, 23, 0.6);
+            border-radius: 15px;
+            padding: 15px;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+        
+        .metric-card h4 {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+        
+        .metric-positive {
+            color: var(--success);
+        }
+        
+        .metric-negative {
+            color: var(--danger);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(to right, var(--finance-teal), var(--primary));
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            margin-top: 10px;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--finance-teal);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(14, 165, 233, 0.1);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--light);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--finance-teal), var(--primary));
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+        }
+        
+        /* Features Section */
+        .features {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: rgba(2, 6, 23, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--finance-teal);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-card p {
+            color: var(--light-gray);
+        }
+        
+        /* How It Works Section */
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .process-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .process-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .process-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .process-steps li {
+            margin-bottom: 40px;
+            padding-left: 70px;
+            position: relative;
+        }
+        
+        .process-steps li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, var(--finance-teal), var(--primary));
+            color: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .process-steps h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .process-steps p {
+            color: var(--light-gray);
+        }
+        
+        .process-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .data-flow {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .flow-item {
+            background: rgba(2, 6, 23, 0.7);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .flow-item::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: var(--finance-teal);
+        }
+        
+        .flow-item:last-child::after {
+            display: none;
+        }
+        
+        .flow-item i {
+            font-size: 2rem;
+            color: var(--finance-teal);
+            margin-bottom: 10px;
+        }
+        
+        .flow-item h4 {
+            font-size: 1.2rem;
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.3) 0%, rgba(2, 6, 23, 0.7) 100%);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: rgba(2, 6, 23, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(14, 165, 233, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            margin-bottom: 20px;
+            color: var(--light-gray);
+            font-style: italic;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--finance-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            color: var(--light);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--finance-blue) 0%, var(--darker) 100%);
+            border-radius: 20px;
+            padding: 80px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.2) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            z-index: 1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .cta p {
+            color: var(--light-gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(2, 6, 23, 0.9);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(14, 165, 233, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--finance-teal);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-col p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--finance-teal);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--finance-teal);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+            
+            .features {
+                padding: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-text {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+            
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+            
+            .hero-btns {
+                display: flex;
+                justify-content: center;
+            }
+            
+            .btn-outline {
+                margin-left: 15px;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .features {
+                padding: 30px 20px;
+            }
+            
+            .btn {
+                display: block;
+                text-align: center;
+                margin-bottom: 15px;
+                width: 100%;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Fin<span>Predict</span></a>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h4>Predictive Analytics Platform</h4>
+                    <div class="accuracy-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span>92% Forecast Accuracy</span>
+                    </div>
+                    <h1>AI-Powered Market Forecasting</h1>
+                    <p>Our machine learning platform processes real-time data streams to forecast market trends with unprecedented accuracy, enabling financial institutions to make data-driven decisions.</p>
+                    <div class="hero-btns">
+                        <a href="#contact" class="btn">Request a Demo</a>
+                        <a href="#how-it-works" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="analytics-dashboard">
+                        <div class="dashboard-header">
+                            <h3>Market Prediction Dashboard</h3>
+                            <div class="time-filters">
+                                <button class="time-btn active">1D</button>
+                                <button class="time-btn">1W</button>
+                                <button class="time-btn">1M</button>
+                                <button class="time-btn">1Y</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="marketChart"></canvas>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h4>Predicted Growth</h4>
+                                <div class="metric-value metric-positive">+3.2%</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Market Volatility</h4>
+                                <div class="metric-value">0.32</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Algorithm Confidence</h4>
+                                <div class="metric-value">92.7%</div>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Recommended Action</h4>
+                                <div class="metric-value metric-positive">BUY</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Advanced Features</h2>
+                <p>Our predictive analytics platform combines cutting-edge technology with financial expertise</p>
+            </div>
+            <div class="features">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Real-time Analysis</h3>
+                        <p>Process live market data streams with millisecond latency for up-to-the-minute insights</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Machine Learning Core</h3>
+                        <p>Deep neural networks continuously learn and improve prediction accuracy</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>High Accuracy</h3>
+                        <p>Consistently achieve 92%+ accuracy in market trend predictions</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Enterprise Security</h3>
+                        <p>Bank-grade encryption and compliance with financial regulations</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Seamless Integration</h3>
+                        <p>API-first design connects with existing trading platforms and systems</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Global Coverage</h3>
+                        <p>Monitor and predict markets across 50+ global exchanges</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Our predictive analytics process in four simple steps</p>
+            </div>
+            <div class="process-container">
+                <div class="process-text">
+                    <h3>Sophisticated Data Processing</h3>
+                    <ul class="process-steps">
+                        <li>
+                            <h4>Data Ingestion</h4>
+                            <p>Real-time collection of market data, news, social sentiment, and economic indicators from 200+ sources</p>
+                        </li>
+                        <li>
+                            <h4>Feature Engineering</h4>
+                            <p>Advanced algorithms identify and extract meaningful patterns from raw data streams</p>
+                        </li>
+                        <li>
+                            <h4>Model Prediction</h4>
+                            <p>Ensemble of ML models generates forecasts with probability assessments</p>
+                        </li>
+                        <li>
+                            <h4>Actionable Insights</h4>
+                            <p>Clear recommendations and visualizations for trading decisions</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="process-image">
+                    <div class="data-flow">
+                        <div class="flow-item">
+                            <i class="fas fa-database"></i>
+                            <h4>Data Sources</h4>
+                            <p>Market data, news, social media, economic indicators</p>
+                        </div>
+                        <div class="flow-item">
+                            <i class="fas fa-filter"></i>
+                            <h4>Data Processing</h4>
+                            <p>Cleaning, normalization, feature extraction</p>
+                        </div>
+                        <div class="flow-item">
+                            <i class="fas fa-brain"></i>
+                            <h4>Machine Learning</h4>
+                            <p>LSTM networks, gradient boosting, ensemble models</p>
+                        </div>
+                        <div class="flow-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <h4>Predictive Output</h4>
+                            <p>Market forecasts with confidence levels</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Trusted by Financial Leaders</h2>
+                <p>What industry professionals say about our predictive analytics platform</p>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "This platform has transformed our trading strategy. The 92% accuracy claim is real - we've consistently outperformed the market since implementation."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">TH</div>
+                            <div class="author-info">
+                                <h4>Trevor Hanson</h4>
+                                <p>Chief Investment Officer, Vertex Capital</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "The real-time processing capabilities are unmatched. We're able to react to market movements before our competitors even see them."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MG</div>
+                            <div class="author-info">
+                                <h4>Michael Gregory</h4>
+                                <p>Chief Investment Officer, Denri Capital</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "Integrating this system with our existing infrastructure was seamless. The API documentation is excellent and the support team is responsive."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MJ</div>
+                            <div class="author-info">
+                                <h4>Michel Johnson</h4>
+                                <p>Chief Investment Officer, Vertex Capital</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "The real-time processing capabilities are unmatched. We're able to react to market movements before our competitors even see them."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">DJ</div>
+                            <div class="author-info">
+                                <h4>Dwayne Johnson</h4>
+                                <p>Chief Investment Officer, Vertex Capital</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "The real-time processing capabilities are unmatched. We're able to react to market movements before our competitors even see them."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SR</div>
+                            <div class="author-info">
+                                <h4>Sarah Rodriguez</h4>
+                                <p>Head of Trading, Apex Financial</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            "Integrating this system with our existing infrastructure was seamless. The API documentation is excellent and the support team is responsive."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">DT</div>
+                            <div class="author-info">
+                                <h4>David Thompson</h4>
+                                <p>CTO, Global Investments Group</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="cta">
+                <div class="cta-content">
+                    <h2>Transform Your Trading Strategy</h2>
+                    <p>Join leading financial institutions using our predictive analytics platform to gain a competitive edge in today's volatile markets</p>
+                    <a href="#" class="btn">Request a Personalized Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions & Resources Section -->
+    <div class="container" style="margin-bottom: 80px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;">
+            <!-- Solutions Grid -->
+            <div>
+                <div class="section-title" style="text-align:left;">
+                    <h2>Solutions</h2>
+                </div>
+                <div style="display: grid; gap: 30px;">
+                    <section id="hedge-funds" style="background:rgba(30,58,138,0.08); border-radius:16px; padding:32px;">
+                        <h3>Hedge Funds</h3>
+                        <p>Empower your hedge fund with real-time predictive analytics for alpha generation and risk management.</p>
+                        <ul>
+                            <li>Advanced forecasting for equities, commodities, and derivatives</li>
+                            <li>Customizable risk models and scenario analysis</li>
+                            <li>API integration with trading platforms</li>
+                        </ul>
+                    </section>
+                    <section id="investment-banks" style="background:rgba(14,165,233,0.08); border-radius:16px; padding:32px;">
+                        <h3>Investment Banks</h3>
+                        <p>Leverage AI-driven insights for deal origination, market analysis, and portfolio optimization.</p>
+                        <ul>
+                            <li>Real-time market sentiment and trend detection</li>
+                            <li>Automated reporting and compliance tools</li>
+                            <li>Integration with internal research systems</li>
+                        </ul>
+                    </section>
+                    <section id="asset-management" style="background:rgba(126,34,206,0.08); border-radius:16px; padding:32px;">
+                        <h3>Asset Management</h3>
+                        <p>Optimize portfolio performance with machine learning models tailored for asset managers.</p>
+                        <ul>
+                            <li>Multi-asset class forecasting and allocation</li>
+                            <li>Performance attribution and benchmarking</li>
+                            <li>Client reporting and dashboarding</li>
+                        </ul>
+                    </section>
+                    <section id="wealth-management" style="background:rgba(16,185,129,0.08); border-radius:16px; padding:32px;">
+                        <h3>Wealth Management</h3>
+                        <p>Deliver personalized investment strategies and insights to your clients using predictive analytics.</p>
+                        <ul>
+                            <li>Client risk profiling and recommendation engine</li>
+                            <li>Automated rebalancing and alerts</li>
+                            <li>Mobile-friendly dashboards for advisors and clients</li>
+                        </ul>
+                    </section>
+                    <section id="trading-firms" style="background:rgba(239,68,68,0.08); border-radius:16px; padding:32px;">
+                        <h3>Trading Firms</h3>
+                        <p>Gain a competitive edge with high-frequency trading signals and market anomaly detection.</p>
+                        <ul>
+                            <li>Ultra-low latency data processing</li>
+                            <li>Custom algorithmic trading strategies</li>
+                            <li>Real-time risk and compliance monitoring</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+            <!-- Resources Grid -->
+            <div>
+                <div class="section-title" style="text-align:left;">
+                    <h2>Resources</h2>
+                </div>
+                <div style="display: grid; gap: 30px;">
+                    <section id="documentation" style="background:rgba(59,130,246,0.08); border-radius:16px; padding:32px;">
+                        <h3>Documentation</h3>
+                        <p>Comprehensive guides and technical documentation to help you integrate and use our predictive analytics platform.</p>
+                        <ul>
+                            <li>Getting Started with FinPredict</li>
+                            <li>Platform Architecture Overview</li>
+                            <li>Integration Tutorials</li>
+                            <li>FAQ & Troubleshooting</li>
+                        </ul>
+                    </section>
+                    <section id="api-reference" style="background:rgba(6,182,212,0.08); border-radius:16px; padding:32px;">
+                        <h3>API Reference</h3>
+                        <p>Explore our robust API endpoints for real-time data access, prediction requests, and system integration.</p>
+                        <ul>
+                            <li>Authentication & Security</li>
+                            <li>Market Data Endpoints</li>
+                            <li>Prediction Request API</li>
+                            <li>Sample Code & SDKs</li>
+                        </ul>
+                    </section>
+                    <section id="case-studies" style="background:rgba(126,34,206,0.08); border-radius:16px; padding:32px;">
+                        <h3>Case Studies</h3>
+                        <p>See how leading financial institutions have leveraged FinPredict for measurable results.</p>
+                        <ul>
+                            <li>Hedge Fund Alpha Generation</li>
+                            <li>Risk Management Success Stories</li>
+                            <li>Trading Firm Performance Boosts</li>
+                            <li>Client Testimonials</li>
+                        </ul>
+                    </section>
+                    <section id="market-insights" style="background:rgba(30,58,138,0.08); border-radius:16px; padding:32px;">
+                        <h3>Market Insights</h3>
+                        <p>Stay ahead with our latest research, market analysis, and predictive trends.</p>
+                        <ul>
+                            <li>Weekly Market Forecasts</li>
+                            <li>Sentiment Analysis Reports</li>
+                            <li>Global Exchange Coverage</li>
+                            <li>Expert Commentary</li>
+                        </ul>
+                    </section>
+                    <section id="white-papers" style="background:rgba(255,255,255,0.08); border-radius:16px; padding:32px;">
+                        <h3>White Papers</h3>
+                        <p>Download in-depth technical papers and research on predictive analytics and financial AI.</p>
+                        <ul>
+                            <li>Machine Learning in Finance</li>
+                            <li>Algorithmic Trading Strategies</li>
+                            <li>Risk Modeling Techniques</li>
+                            <li>Future of AI in Markets</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>FinPredict</h3>
+                    <p>AI-powered predictive analytics for financial markets. Achieve 92% forecast accuracy with our machine learning platform.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/jack-wariari-0b3754302/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Muhunyo"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/MainaWaria90059"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/mainaWariari/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/jackmuhunyo/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Solutions</h3>
+                    <ul class="footer-links">
+                        <li><a href="#hedge-funds">Hedge Funds</a></li>
+                        <li><a href="#investment-banks">Investment Banks</a></li>
+                        <li><a href="#asset-management">Asset Management</a></li>
+                        <li><a href="#wealth-management">Wealth Management</a></li>
+                        <li><a href="#trading-firms">Trading Firms</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#api-reference">API Reference</a></li>
+                        <li><a href="#case-studies">Case Studies</a></li>
+                        <li><a href="#market-insights">Market Insights</a></li>
+                        <li><a href="#white-papers">White Papers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> wariarimaina@gmail.com </li>
+                        <li><i class="fas fa-phone"></i> +254 115 316534</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Meru, Kenya</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 FinPredict. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize market chart
+        const ctx = document.getElementById('marketChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [
+                    {
+                        label: 'Actual Market',
+                        data: [185, 192, 198, 210, 205, 215, 222, 230, 225, 235, 245, 260],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Predicted Trend',
+                        data: [190, 195, 203, 208, 215, 220, 225, 232, 240, 245, 250, 265],
+                        borderColor: '#06b6d4',
+                        borderWidth: 3,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#e2e8f0',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        titleColor: '#e2e8f0',
+                        bodyColor: '#cbd5e1',
+                        borderColor: 'rgba(14, 165, 233, 0.5)',
+                        borderWidth: 1,
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: '#94a3b8'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: '#94a3b8'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Time filter buttons
+        const timeButtons = document.querySelectorAll('.time-btn');
+        timeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                timeButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // In a real app, this would update the chart data
+                // For this demo, we'll just simulate an update
+                chart.data.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                chart.data.datasets[0].data = [185, 190, 188, 195, 200];
+                chart.data.datasets[1].data = [182, 187, 192, 198, 205];
+                chart.update();
+            });
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

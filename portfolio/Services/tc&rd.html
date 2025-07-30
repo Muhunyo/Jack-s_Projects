@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TechVision Labs - Leading provider of technical consulting and R&D services. Transforming innovative ideas into cutting-edge solutions through advanced research, development, and technical expertise.">
+    <meta name="keywords" content="Technical Consulting, R&D, Software Development, System Architecture, Innovation Strategy, Security Assessment, Data Analytics, AI/ML, Blockchain, IoT">
+    <meta name="author" content="Jack Wariari">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon" type="image/x-icon" href="./Icons/TecVision.jpeg">
+    <link rel="canonical" href="https://www.techvisionlabs.com/tc-rd">
+    <title>TechVision Labs - Technical Consulting & R&D</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+                    }
+                
+
+        :root {
+            --primary-color: #0066ff;
+            --secondary-color: #00d4ff;
+            --accent-color: #ff6b35;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, #667eea 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #764ba2 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, #4facfe 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            33% { transform: translateX(-30px) translateY(-50px) rotate(120deg); }
+            66% { transform: translateX(50px) translateY(-30px) rotate(240deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-3);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--gradient-3);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 10%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Technologies Section */
+        .technologies {
+            padding: 100px 5%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tech-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-3);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-3);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-3);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+        <nav>
+            <div class="logo">TechVision Labs</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#technologies">Technologies</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Technical Consulting & R&D Excellence</h1>
+            <p>Transforming innovative ideas into cutting-edge solutions through advanced research, development, and technical expertise. We bridge the gap between concept and reality.</p>
+            <a href="#contact" class="cta-button">Start Your Project</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🔬</div>
+                <h3>Research & Development</h3>
+                <p>Comprehensive R&D services from feasibility studies to prototype development. We turn your innovative concepts into market-ready solutions through rigorous research methodologies and advanced testing protocols.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Technical Consulting</h3>
+                <p>Expert technical guidance across multiple domains including software architecture, system design, technology selection, and performance optimization. Our consultants bring decades of industry experience.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <h3>System Architecture</h3>
+                <p>Design and implementation of scalable, robust system architectures. From microservices to enterprise solutions, we create architectures that grow with your business needs.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔮</div>
+                <h3>Innovation Strategy</h3>
+                <p>Strategic planning for technology adoption and innovation roadmaps. We help organizations identify emerging technologies and create implementation strategies for competitive advantage.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h3>Security Assessment</h3>
+                <p>Comprehensive security audits, penetration testing, and vulnerability assessments. We ensure your systems are protected against evolving cyber threats with industry-best practices.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Data Analytics</h3>
+                <p>Advanced data analytics, machine learning implementation, and business intelligence solutions. Transform your data into actionable insights for informed decision-making.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="technologies" class="technologies">
+        <div class="tech-container">
+            <h2 class="section-title">Technologies We Master</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">⚛️</div>
+                    <p>React</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📱</div>
+                    <p>Node.js</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🐍</div>
+                    <p>Python</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">☁️</div>
+                    <p>AWS</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🐳</div>
+                    <p>Docker</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔧</div>
+                    <p>Kubernetes</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🤖</div>
+                    <p>AI/ML</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔗</div>
+                    <p>Blockchain</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📡</div>
+                    <p>IoT</p>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🏢</div>
+                    <p>Enterprise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div style="margin: 2rem 0;">
+                    <p><strong>📧 Email:</strong> wariarimaina@gmail.com </p>
+                    <p><strong>📞 Phone:</strong> +254 115 316 534</p>
+                    <p><strong>📍 Address:</strong> 123 Innovation Drive<br>Tech City, TC 12345</p>
+                    <p><strong>🕒 Hours:</strong> Mon-Fri 9AM-6PM EST</p>
+                </div>
+                <h4>Why Choose Us?</h4>
+                <ul style="margin-top: 1rem; color: var(--text-secondary);">
+                    <li>✅ 15+ years of industry experience</li>
+                    <li>✅ 500+ successful projects delivered</li>
+                    <li>✅ Expert team of 50+ professionals</li>
+                    <li>✅ 24/7 support and maintenance</li>
+                    <li>✅ Agile development methodology</li>
+                </ul>
+            </div>
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm" action="./DB/tc-rd.php" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Interest</label>
+                        <select id="service" name="service" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(124, 22, 22, 0.2); border-radius: 10px; color: var(--text-primary);">
+                            <option value="">Select a service</option>
+                            <option value="rd">Research & Development</option>
+                            <option value="consulting">Technical Consulting</option>
+                            <option value="architecture">System Architecture</option>
+                            <option value="innovation">Innovation Strategy</option>
+                            <option value="security">Security Assessment</option>
+                            <option value="analytics">Data Analytics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Description *</label>
+                        <textarea id="message" name="details" rows="5" required placeholder="Tell us about your project requirements, timeline, and objectives..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 TechVision Labs. All rights reserved. | Transforming Ideas into Reality</p>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Progress bar functionality
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all service cards and tech items
+        document.querySelectorAll('.service-card, .tech-item, .contact-content > div').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Attach custom message function to form submit
+        document.querySelector('#contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    fetch('./DB/tc-rd.php', {
+        method: 'POST',
+        body: new FormData(this)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Success: ' + data.message);
+        } else {
+            alert('Error: ' + data.message);
+        }
+    });
+});
+
+        // Tech items hover effects
+        document.querySelectorAll('.tech-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.tech-icon');
+                icon.style.transform = 'scale(1.2) rotate(360deg)';
+                icon.style.transition = 'transform 0.5s ease';
+            });
+
+            item.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.tech-icon');
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Service cards interactive effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            });
+        });
+
+        // Dynamic typing effect for hero section
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+
+        function typeText(element, text, speed = 100) {
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        }
+
+        // Start typing effect when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                typeText(heroTitle, originalText, 50);
+            }, 500);
+        });
+
+        // Performance optimization: Debounced scroll handler
+        let ticking = false;
+        function updateScrollEffects() {
+            // Progress bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+
+            // Header background
+            const header = document.querySelector('header');
+                if (winScroll > 100) {
+                    header.style.background = 'rgba(10, 10, 10, 0.98)';
+                } else {
+                    header.style.background = 'rgba(10, 10, 10, 0.95)';
+                }
+            }
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateScrollEffects();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+            });
+            </script>
+        </body>
+        </html>

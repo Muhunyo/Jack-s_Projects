@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Solutions | Advanced Machine Learning Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0ea5e9;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 0 60px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            top: -300px;
+            right: -300px;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+        
+        .hero-text h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero-text h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .ml-illustration {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.1);
+            z-index: -1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -30px;
+            left: -30px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -30px;
+            right: -30px;
+            background: rgba(139, 92, 246, 0.1);
+        }
+        
+        .ml-diagram {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: var(--gradient);
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Process Section */
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .process-steps {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .process-step {
+            display: flex;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+        
+        .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: var(--gray);
+        }
+        
+        .process-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Projects Section */
+        .projects-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: var(--light-gray);
+            color: var(--dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            margin: 0 10px 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .project-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            background: var(--light-gray);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Testimonials */
+        .testimonials-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin: 20px;
+        }
+        
+        .testimonial-content {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--light-gray);
+            position: absolute;
+        }
+        
+        .testimonial-content::before {
+            top: -20px;
+            left: -15px;
+        }
+        
+        .testimonial-content::after {
+            bottom: -40px;
+            right: -15px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: var(--gradient);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            margin: 50px 0;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .cta .btn {
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .cta .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-col p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 50px;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .process-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .cta h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">ML<span>Solutions</span></a>
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h4>Advanced Machine Learning Solutions</h4>
+                    <h1>Transforming Businesses with <span>AI Innovation</span></h1>
+                    <p>We deliver cutting-edge machine learning solutions that drive growth, optimize operations, and unlock new opportunities for your organization.</p>
+                    <a href="#services" class="btn">Explore Our Services</a>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">92%</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">250+</div>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">98%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="ml-illustration">
+                        <div class="circle circle-1"></div>
+                        <div class="circle circle-2"></div>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect fill='%23f1f5f9' width='800' height='600'/%3E%3Cg fill='none' stroke='%232563eb' stroke-width='2'%3E%3Cpath d='M100,300 Q250,150 400,300 T700,300'/%3E%3Cpath d='M100,200 Q250,50 400,200 T700,200' stroke='%238b5cf6'/%3E%3Cpath d='M100,400 Q250,250 400,400 T700,400' stroke='%230ea5e9'/%3E%3C/g%3E%3Ccircle fill='%232563eb' cx='100' cy='300' r='10'/%3E%3Ccircle fill='%238b5cf6' cx='100' cy='200' r='10'/%3E%3Ccircle fill='%230ea5e9' cx='100' cy='400' r='10'/%3E%3Ccircle fill='%232563eb' cx='400' cy='300' r='10'/%3E%3Ccircle fill='%238b5cf6' cx='400' cy='200' r='10'/%3E%3Ccircle fill='%230ea5e9' cx='400' cy='400' r='10'/%3E%3Ccircle fill='%232563eb' cx='700' cy='300' r='10'/%3E%3Ccircle fill='%238b5cf6' cx='700' cy='200' r='10'/%3E%3Ccircle fill='%230ea5e9' cx='700' cy='400' r='10'/%3E%3Ctext x='100' y='170' font-family='Arial' font-size='14' fill='%230f172a'%3EData%3C/text%3E%3Ctext x='400' y='170' font-family='Arial' font-size='14' fill='%230f172a'%3EModels%3C/text%3E%3Ctext x='700' y='170' font-family='Arial' font-size='14' fill='%230f172a'%3EInsights%3C/text%3E%3C/svg%3E" 
+                             alt="Machine Learning Process" class="ml-diagram">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Machine Learning Services</h2>
+                <p>We provide end-to-end machine learning solutions tailored to your business needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Forecast trends, behaviors, and outcomes with our advanced predictive modeling techniques.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Development</h3>
+                    <p>Build intelligent systems that learn, adapt, and make decisions with minimal human intervention.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Natural Language Processing</h3>
+                    <p>Enable machines to understand, interpret, and generate human language for better interactions.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Computer Vision</h3>
+                    <p>Implement systems that can identify, process, and analyze visual information from the world.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Process Automation</h3>
+                    <p>Automate complex business processes using intelligent algorithms to increase efficiency.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>ML Operations</h3>
+                    <p>Deploy, monitor, and maintain your machine learning models in production environments.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Proven Process</h2>
+                <p>We follow a structured approach to deliver successful machine learning solutions</p>
+            </div>
+            <div class="process-container">
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Problem Analysis</h3>
+                            <p>We begin by thoroughly understanding your business challenge and defining clear objectives for the ML solution.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Data Preparation</h3>
+                            <p>Our team collects, cleans, and transforms your data to create the optimal dataset for model training.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Model Development</h3>
+                            <p>We design, train, and validate machine learning models using state-of-the-art algorithms and techniques.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Deployment & Integration</h3>
+                            <p>Your solution is deployed into production and seamlessly integrated with your existing systems.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Monitoring & Optimization</h3>
+                            <p>We continuously monitor performance and make improvements to ensure long-term success.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 500'%3E%3Ccircle cx='300' cy='250' r='200' fill='%23f1f5f9' stroke='%232563eb' stroke-width='2'/%3E%3Ccircle cx='300' cy='250' r='160' fill='none' stroke='%238b5cf6' stroke-width='2' stroke-dasharray='10,5'/%3E%3Ccircle cx='300' cy='250' r='120' fill='none' stroke='%230ea5e9' stroke-width='2'/%3E%3Cpath d='M300,50 L350,150 L250,150 Z' fill='%232563eb'/%3E%3Cpath d='M300,450 L350,350 L250,350 Z' fill='%238b5cf6'/%3E%3Cpath d='M50,250 L150,300 L150,200 Z' fill='%230ea5e9'/%3E%3Cpath d='M550,250 L450,300 L450,200 Z' fill='%232563eb'/%3E%3Ctext x='300' y='80' text-anchor='middle' font-family='Arial' font-size='16' fill='%230f172a'%3EProblem Analysis%3C/text%3E%3Ctext x='300' y='420' text-anchor='middle' font-family='Arial' font-size='16' fill='%230f172a'%3EDeployment%3C/text%3E%3Ctext x='100' y='280' text-anchor='middle' font-family='Arial' font-size='16' fill='%230f172a'%3EData Prep%3C/text%3E%3Ctext x='500' y='280' text-anchor='middle' font-family='Arial' font-size='16' fill='%230f172a'%3EMonitoring%3C/text%3E%3Ctext x='300' y='250' text-anchor='middle' font-family='Arial' font-size='18' font-weight='bold' fill='%230f172a'%3EModel%3C/text%3E%3Ctext x='300' y='280' text-anchor='middle' font-family='Arial' font-size='18' font-weight='bold' fill='%230f172a'%3EDevelopment%3C/text%3E%3C/svg%3E" 
+                         alt="Machine Learning Process" width="100%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Projects</h2>
+                <p>Explore some of our successful machine learning implementations</p>
+            </div>
+            
+            <div class="projects-tabs">
+                <button class="tab-btn active">All Projects</button>
+                <button class="tab-btn">Finance</button>
+                <button class="tab-btn">Healthcare</button>
+                <button class="tab-btn">Retail</button>
+                <button class="tab-btn">Manufacturing</button>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Stock Market Predictor</h3>
+                        <p>AI-powered system that forecasts stock movements with 89% accuracy for investment firms.</p>
+                        <div class="project-tags">
+                            <span class="tag">Time Series</span>
+                            <span class="tag">LSTM</span>
+                            <span class="tag">Finance</span>
+                        </div>
+                        <a href="#" class="btn">View Case Study</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Medical Diagnosis Assistant</h3>
+                        <p>Deep learning system that helps doctors diagnose diseases from medical images with 94% accuracy.</p>
+                        <div class="project-tags">
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">CNN</span>
+                            <span class="tag">Healthcare</span>
+                        </div>
+                        <a href="#" class="btn">View Case Study</a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Customer Behavior Analysis</h3>
+                        <p>Predictive analytics platform that identifies customer purchase patterns for retail chains.</p>
+                        <div class="project-tags">
+                            <span class="tag">Clustering</span>
+                            <span class="tag">Recommendation</span>
+                            <span class="tag">Retail</span>
+                        </div>
+                        <a href="#" class="btn">View Case Study</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Client Testimonials</h2>
+                <p>What our clients say about our machine learning solutions</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The predictive maintenance solution developed by ML Solutions reduced our equipment downtime by 45% and saved us over $2M in the first year. Their team's expertise in machine learning is unmatched."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SR</div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>CTO, Manufacturing Solutions Inc.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "ML Solutions helped us implement a real-time fraud detection system that has significantly reduced our losses. Their approach to machine learning is both innovative and effective."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JM</div>
+                    <div class="author-info">
+                        <h4>John Miller</h4>
+                        <p>Head of Risk Management, FinTech Corp.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "The AI chatbot developed by ML Solutions has transformed our customer service operations, improving response times and customer satisfaction. Their team is highly skilled and professional."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AL</div>
+                    <div class="author-info">
+                        <h4>Alice Lee</h4>
+                        <p>Customer Experience Director, Retail Giants</p>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    
+
+    <!-- CTA Section -->
+    <section>
+        <div class="container">
+            <div class="cta">
+                <h2>Ready to Transform Your Business with AI?</h2>
+                <p>Schedule a free consultation with our machine learning experts to discover how we can help you leverage AI for competitive advantage.</p>
+                <a href="#contact" class="btn">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>ML Solutions</h3>
+                    <p>We deliver cutting-edge machine learning solutions that drive innovation, efficiency, and growth for businesses worldwide.</p>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/jack-wariari-0b3754302/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Muhunyo"><i class="fab fa-github"></i></a>
+                        <a href="https://x.com/MainaWaria90059"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.facebook.com/mainaWariari/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/jackmuhunyo/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Predictive Analytics</a></li>
+                        <li><a href="#">AI Development</a></li>
+                        <li><a href="#">Natural Language Processing</a></li>
+                        <li><a href="#">Computer Vision</a></li>
+                        <li><a href="#">Process Automation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#process">Process</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i>Nchiru - Meru, Kenya</li>
+                        <li><i class="fas fa-phone"></i> +254 115 316 534</li>
+                        <li><i class="fas fa-envelope"></i> wariarimaina@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 ML Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // In a real implementation, this would filter projects
+                // For this demo, we'll just show an alert
+                if(button.textContent !== "All Projects") {
+                    alert(`Filtering projects by: ${button.textContent}`);
+                }
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Sticky header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+        
+        // Simple animation for service cards on scroll
+        const serviceCards = document.querySelectorAll('.service-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        serviceCards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
